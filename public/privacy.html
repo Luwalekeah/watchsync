@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — WatchSync</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 720px; margin: 60px auto; padding: 0 24px; color: #1a1a1a; line-height: 1.7; }
+    h1 { font-size: 2rem; margin-bottom: 4px; }
+    h2 { font-size: 1.2rem; margin-top: 40px; }
+    p, li { font-size: 1rem; color: #333; }
+    a { color: #6366f1; }
+    .updated { color: #888; font-size: 0.9rem; margin-bottom: 40px; display: block; }
+  </style>
+</head>
+<body>
+  <h1>Privacy Policy</h1>
+  <span class="updated">Last updated: March 2025</span>
+
+  <p>WatchSync ("we", "the app") is a browser-based tool that helps two people compare their Netflix viewing histories and discover shows to watch together. This policy explains what data is used and how.</p>
+
+  <h2>Data we do not collect</h2>
+  <p>WatchSync does not collect, store, or transmit your personal information. Specifically:</p>
+  <ul>
+    <li>Your Netflix viewing history is processed entirely in your browser and never sent to WatchSync servers.</li>
+    <li>Your sync link encodes your taste profile in the URL itself using lz-string compression — no server stores it.</li>
+    <li>We do not require an account, login, or any personally identifiable information.</li>
+  </ul>
+
+  <h2>Data sent to our backend</h2>
+  <p>When you request AI recommendations, your top genre names and show titles (not timestamps, account info, or personal data) are sent to our backend to generate suggestions. This data is not logged or stored after the response is returned.</p>
+
+  <h2>Chrome Extension</h2>
+  <p>The WatchSync Extractor extension:</p>
+  <ul>
+    <li>Only activates on netflix.com when you click the extension button.</li>
+    <li>Reads your viewing history from the Netflix page in your browser.</li>
+    <li>Sends that data directly to the WatchSync web app — it is not stored by the extension or sent anywhere else.</li>
+    <li>Does not access any sites other than netflix.com and the WatchSync app.</li>
+  </ul>
+
+  <h2>Third-party services</h2>
+  <p>WatchSync uses the following third-party APIs to look up show metadata and generate recommendations:</p>
+  <ul>
+    <li><a href="https://www.themoviedb.org/privacy-policy" target="_blank">TMDb (The Movie Database)</a> — for genre and show metadata</li>
+    <li><a href="https://www.anthropic.com/privacy" target="_blank">Anthropic Claude</a> — for AI-powered recommendations</li>
+  </ul>
+
+  <h2>Contact</h2>
+  <p>If you have any questions about this policy, you can open an issue on the <a href="https://github.com/Luwalekeah/watchsync" target="_blank">GitHub repository</a>.</p>
+</body>
+</html>
