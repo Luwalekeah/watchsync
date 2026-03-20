@@ -350,3 +350,71 @@ details[open] .docs-faq-q::after { content: "−"; }
   .docs-def-item { grid-template-columns: 1fr; }
   .docs-def-term { border-bottom: 1px solid var(--border); }
 }
+
+/* ─── Mobile ──────────────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  /* Layout */
+  .nav { padding: 0 16px; }
+  .main-content { padding: 24px 16px 0; }
+
+  /* Nav — hide phase badge on very small screens */
+  .nav-badge.muted { display: none; }
+
+  /* Landing hero */
+  .hero-headline { font-size: 36px; }
+  .hero-sub { font-size: 14px; }
+
+  /* How-it-works: 2x2 grid */
+  .how-it-works { grid-template-columns: 1fr 1fr; }
+
+  /* Stat block: stack vertically */
+  .stat-block { flex-direction: column; align-items: flex-start; gap: 12px; padding: 20px; }
+  .stat-big { font-size: 52px; }
+
+  /* Sync link row: stack input and button */
+  .sync-link-row { flex-direction: column; }
+  .sync-link-input { width: 100%; }
+  .sync-link-entry { max-width: 100%; }
+
+  /* Platform grid: 2 columns */
+  .platform-grid { grid-template-columns: 1fr 1fr; }
+
+  /* Method selection: single column */
+  .method-grid { grid-template-columns: 1fr; }
+
+  /* Step indicator: allow wrapping */
+  .step-indicator { flex-wrap: wrap; row-gap: 8px; }
+
+  /* Dashboard stat row: 1 column */
+  .stat-row { grid-template-columns: 1fr; }
+
+  /* Two-col sections: single column */
+  .two-col { grid-template-columns: 1fr; }
+
+  /* Recs grid: single column */
+  .recs-grid { grid-template-columns: 1fr; }
+
+  /* Show overlap: single column */
+  .show-overlap-grid { grid-template-columns: 1fr; }
+
+  /* Share screen */
+  .share-link-row { flex-direction: column; }
+  .share-footer { flex-direction: column; align-items: stretch; }
+  .share-footer .btn { text-align: center; }
+
+  /* Invite banner */
+  .invite-banner { flex-direction: column; }
+
+  /* Ext install banner */
+  .ext-install-banner { flex-direction: column; gap: 12px; }
+
+  /* Score actions */
+  .score-actions { flex-direction: column; align-items: center; }
+
+  /* Docs */
+  .docs-title { font-size: 26px; }
+  .docs-flow-row { grid-template-columns: 1fr 1fr; }
+
+  /* Profile stats: 1 column */
+  .profile-stats { grid-template-columns: 1fr; }
+}
