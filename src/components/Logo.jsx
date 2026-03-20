@@ -13,7 +13,7 @@ export default function Logo({ size = 22 }) {
         </defs>
         <path d="M13.5 12.5l6 3.5-6 3.5V12.5z" fill="white" />
       </svg>
-      <span className="ws-logo-text" style={{ fontSize: size * 0.9 }}>
+      <span className="ws-logo-text">
         Watch<span className="ws-logo-accent">Sync</span>
       </span>
     </div>

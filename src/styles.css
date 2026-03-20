@@ -49,7 +49,7 @@ body { background: var(--bg); color: var(--text); font-family: var(--fb); line-h
 
 /* ─── Logo ────────────────────────────────────────────────────────────────── */
 .ws-logo { display: flex; align-items: center; gap: 9px; }
-.ws-logo-text { font-family: var(--fd); font-weight: 800; letter-spacing: -0.02em; color: var(--text); }
+.ws-logo-text { font-family: var(--fd); font-size: 27px; font-weight: 800; letter-spacing: -0.02em; color: var(--text); }
 .ws-logo-accent { color: var(--cyan); }
 
 /* ─── Buttons ─────────────────────────────────────────────────────────────── */
