@@ -1,0 +1,66 @@
+{
+  "manifest_version": 3,
+  "name": "WatchSync Extractor",
+  "version": "1.0.0",
+  "description": "Sync your Netflix viewing history with WatchSync — one click, no copy-paste.",
+
+  "icons": {
+    "16":  "icons/icon16.png",
+    "48":  "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16":  "icons/icon16.png",
+      "48":  "icons/icon48.png"
+    }
+  },
+
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["*://*.netflix.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "http://localhost:5173/*",
+        "http://localhost:4173/*",
+        "https://watchwsync.vercel.app/*",
+        "https://*.watchwsync.app/*"
+      ],
+      "js": ["relay.js"],
+      "run_at": "document_idle"
+    }
+  ],
+
+  "permissions": [
+    "tabs",
+    "scripting",
+    "storage"
+  ],
+
+  "host_permissions": [
+    "*://*.netflix.com/*",
+    "http://localhost:5173/*",
+    "http://localhost:4173/*",
+    "https://watchwsync.vercel.app/*",
+    "https://*.watchwsync.app/*"
+  ],
+
+  "externally_connectable": {
+  "matches": [
+    "http://localhost:5173/*",
+    "http://localhost:4173/*",
+    "https://watchwsync.vercel.app/*",
+    "https://*.watchwsync.app/*"
+  ]
+}
+}
