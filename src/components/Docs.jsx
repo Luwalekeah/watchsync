@@ -225,6 +225,12 @@ export default function Docs({ onBack }) {
             </div>
           ))}
         </div>
+        <p className="docs-p" style={{ marginTop: 16 }}>
+          For the full policy, see our{" "}
+          <a href="https://luwah-watchsync.onrender.com/privacy.html" target="_blank" rel="noopener noreferrer" style={{ color: "var(--cyan)" }}>
+            Privacy Policy
+          </a>.
+        </p>
       </section>
 
       {/* ── FAQ ── */}
