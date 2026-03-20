@@ -7,6 +7,9 @@ import { enrichHistory } from "../api/index.js";
 // For local dev: find it at chrome://extensions after loading unpacked
 export const EXTENSION_ID = import.meta.env.VITE_EXTENSION_ID || "YOUR_EXTENSION_ID_HERE";
 
+// TODO: update this URL once the Chrome Web Store listing is approved
+const CHROME_STORE_URL = "https://chromewebstore.google.com/detail/watchsync-extractor/gopbhkcjmpacbilgopgmejfokcbklfao";
+
 const PLATFORMS = [
   { id: "netflix",     name: "Netflix",     emoji: "🔴", status: "live" },
   { id: "hulu",        name: "Hulu",        emoji: "🟢", status: "soon" },
@@ -230,7 +233,7 @@ export default function Collect({ onDone, isUserB = false, partnerPlatform = nul
                 extInstalled
                   ? <div className="method-badge instant">✓ Installed — One click</div>
                   : <div className="method-badge not-installed">
-                      <a href="#install" onClick={(e) => { e.stopPropagation(); document.getElementById("ext-install")?.scrollIntoView(); }}
+                      <a href={CHROME_STORE_URL} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}
                         style={{ color: "inherit", textDecoration: "none" }}>
                         Install extension →
                       </a>
