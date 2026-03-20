@@ -31,10 +31,7 @@
     },
     {
       "matches": [
-        "http://localhost:5173/*",
-        "http://localhost:4173/*",
-        "https://watchwsync.vercel.app/*",
-        "https://*.watchwsync.app/*"
+        "https://luwah-watchsync.onrender.com/*"
       ],
       "js": ["relay.js"],
       "run_at": "document_idle"
@@ -49,18 +46,12 @@
 
   "host_permissions": [
     "*://*.netflix.com/*",
-    "http://localhost:5173/*",
-    "http://localhost:4173/*",
-    "https://watchwsync.vercel.app/*",
-    "https://*.watchwsync.app/*"
+    "https://luwah-watchsync.onrender.com/*"
   ],
 
   "externally_connectable": {
-  "matches": [
-    "http://localhost:5173/*",
-    "http://localhost:4173/*",
-    "https://watchwsync.vercel.app/*",
-    "https://*.watchwsync.app/*"
-  ]
-}
+    "matches": [
+      "https://luwah-watchsync.onrender.com/*"
+    ]
+  }
 }
