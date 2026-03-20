@@ -41,7 +41,7 @@ body { background: var(--bg); color: var(--text); font-family: var(--fb); line-h
 .nav { border-bottom: 1px solid var(--border); padding: 0 40px; height: 56px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; background: rgba(7, 9, 15, 0.88); backdrop-filter: blur(14px); z-index: 100; }
 .nav-logo-btn { background: none; border: none; cursor: pointer; padding: 0; }
 .nav-right { display: flex; align-items: center; gap: 12px; }
-.nav-badge { font-family: var(--fm); font-size: 11px; padding: 3px 10px; border-radius: 20px; }
+.nav-badge { font-family: var(--fm); font-size: 11px; padding: 3px 10px; border-radius: 20px; white-space: nowrap; }
 .nav-badge.amber { color: var(--amber); border: 1px solid rgba(245,158,11,.3); background: var(--amber-dim); }
 .nav-badge.muted { color: var(--muted); border: 1px solid var(--border-2); }
 .nav-help-btn { background: none; border: 1px solid var(--border-2); color: var(--muted-2); font-family: var(--fb); font-size: 12px; padding: 4px 14px; border-radius: 20px; cursor: pointer; transition: all 0.2s; }
@@ -357,8 +357,10 @@ details[open] .docs-faq-q::after { content: "−"; }
   .nav { padding: 0 16px; }
   .main-content { padding: 24px 16px 0; }
 
-  /* Nav — hide phase badge on very small screens */
+  /* Nav — hide phase badge, shrink amber badge on small screens */
   .nav-badge.muted { display: none; }
+  .nav-badge.amber { font-size: 10px; padding: 3px 8px; }
+  .ws-logo-text { font-size: 18px; }
 
   /* Landing hero */
   .hero-headline { font-size: 36px; }
