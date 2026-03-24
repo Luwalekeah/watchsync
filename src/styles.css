@@ -151,7 +151,7 @@ body { background: var(--bg); color: var(--text); font-family: var(--fb); line-h
 .hero-headline { font-family: var(--fd); font-size: 56px; font-weight: 800; line-height: 1.06; letter-spacing: -0.03em; margin-bottom: 18px; }
 .hero-accent { color: var(--cyan); }
 .hero-sub { font-size: 16px; color: var(--muted-2); max-width: 500px; margin: 0 auto 32px; line-height: 1.75; font-weight: 300; }
-.hero-cta { display: flex; gap: 10px; justify-content: center; }
+.hero-cta { display: flex; flex-direction: column; align-items: center; gap: 12px; }
 .sync-link-entry { max-width: 520px; margin: 28px auto 0; }
 .sync-link-divider { display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: 12px; letter-spacing: 0.05em; margin-bottom: 12px; }
 .sync-link-divider::before, .sync-link-divider::after { content: ""; flex: 1; height: 1px; background: var(--border); }
@@ -246,7 +246,7 @@ body { background: var(--bg); color: var(--text); font-family: var(--fb); line-h
 .rec-reason { font-size: 12px; color: var(--muted-2); line-height: 1.6; font-style: italic; }
 
 /* ─── Method selection ────────────────────────────────────────────────────── */
-.method-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 20px; }
+.method-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 20px; }
 .method-card { background: var(--surface); border: 2px solid var(--border); border-radius: 10px; padding: 20px; cursor: pointer; text-align: left; transition: all 0.2s; position: relative; color: var(--text); }
 .method-card:hover { border-color: var(--border-2); }
 .method-card.selected { border-color: var(--cyan); background: var(--cyan-dim); }
@@ -288,6 +288,17 @@ body { background: var(--bg); color: var(--text); font-family: var(--fb); line-h
 .ext-sync-step { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted-2); }
 .ext-sync-num { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; background: var(--cyan-dim); border: 1px solid rgba(6,182,212,.3); color: var(--cyan); border-radius: 50%; font-size: 11px; font-family: var(--fm); flex-shrink: 0; }
 .ext-sync-arrow { color: var(--border-2); font-size: 16px; }
+
+/* ─── Manual Profile ─────────────────────────────────────────────────────── */
+.chip-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.taste-chip { background: var(--surface); border: 1px solid var(--border-2); color: var(--muted-2); font-family: var(--fb); font-size: 12px; padding: 5px 12px; border-radius: 20px; cursor: pointer; transition: all 0.2s; }
+.taste-chip:hover { border-color: var(--cyan); color: var(--cyan); }
+.taste-chip.active { background: var(--cyan-dim); border-color: var(--cyan); color: var(--cyan); }
+.title-input-row { display: flex; gap: 8px; }
+.title-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.title-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; padding: 5px 12px; background: var(--cyan-dim); border: 1px solid rgba(6,182,212,0.2); border-radius: 20px; color: var(--cyan); }
+.title-tag-x { background: none; border: none; color: var(--cyan); font-size: 16px; cursor: pointer; padding: 0; line-height: 1; opacity: 0.6; transition: opacity 0.15s; }
+.title-tag-x:hover { opacity: 1; }
 
 /* ─── Docs page ───────────────────────────────────────────────────────────── */
 .docs-page { max-width: 760px; margin: 0 auto; padding-bottom: 80px; }
@@ -409,6 +420,10 @@ details[open] .docs-faq-q::after { content: "−"; }
 
   /* Ext install banner */
   .ext-install-banner { flex-direction: column; gap: 12px; }
+
+  /* Manual profile */
+  .title-input-row { flex-direction: column; }
+  .chip-grid { gap: 6px; }
 
   /* Score actions */
   .score-actions { flex-direction: column; align-items: center; }

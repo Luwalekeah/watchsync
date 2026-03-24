@@ -40,6 +40,26 @@ export async function enrichHistory(items, signal) {
 }
 
 /**
+ * Infer a taste profile from a free-text description and/or title list.
+ * Returns the same { genres, shows, total } shape as enrichHistory.
+ */
+export async function inferProfile(description, titles, signal) {
+  const res = await fetch(`${API}/api/infer-profile`, {
+    method:  "POST",
+    headers: { "Content-Type": "application/json" },
+    body:    JSON.stringify({ description, titles }),
+    signal,
+  });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ error: res.statusText }));
+    throw new Error(err.error || `Profile inference failed (${res.status})`);
+  }
+
+  return res.json();
+}
+
+/**
  * Fetch AI-powered recommendations for two profiles.
  * Uses structured tool_use on the backend — response is always valid JSON.
  *

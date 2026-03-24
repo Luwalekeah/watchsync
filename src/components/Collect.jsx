@@ -7,7 +7,6 @@ import { enrichHistory } from "../api/index.js";
 // For local dev: find it at chrome://extensions after loading unpacked
 export const EXTENSION_ID = import.meta.env.VITE_EXTENSION_ID || "YOUR_EXTENSION_ID_HERE";
 
-// TODO: update this URL once the Chrome Web Store listing is approved
 const CHROME_STORE_URL = "https://chromewebstore.google.com/detail/watchsync-extractor/gopbhkcjmpacbilgopgmejfokcbklfao";
 
 const PLATFORMS = [
@@ -65,7 +64,7 @@ function syncViaExtension(onProgress) {
 
 // ── Component ─────────────────────────────────────────────────────────────────
 
-export default function Collect({ onDone, isUserB = false, partnerPlatform = null }) {
+export default function Collect({ onDone, onManual, isUserB = false, partnerPlatform = null }) {
   const [step,          setStep]         = useState(1);
   const [plat,          setPlat]         = useState("netflix");
   const [method,        setMethod]       = useState(null);    // "extension" | "csv"
@@ -250,6 +249,20 @@ export default function Collect({ onDone, isUserB = false, partnerPlatform = nul
               </div>
               <div className="method-badge days">Takes 2–3 days</div>
             </button>
+
+            {/* Manual option */}
+            {onManual && (
+              <button className="method-card" onClick={onManual}>
+                <div className="method-icon">✍️</div>
+                <div className="method-title">Describe My Taste</div>
+                <div className="method-desc">
+                  No account needed. Describe what you like and list your favorites — AI builds your profile.
+                </div>
+                <div className="method-badge instant" style={{ background: "rgba(139,92,246,.12)", color: "#a78bfa", borderColor: "rgba(139,92,246,.25)" }}>
+                  Works on mobile
+                </div>
+              </button>
+            )}
           </div>
 
           {/* CSV upload area (shown inline when csv selected) */}

@@ -5,6 +5,7 @@ import Collect from "./components/Collect.jsx";
 import ShareScreen from "./components/ShareScreen.jsx";
 import Dashboard from "./components/Dashboard.jsx";
 import Docs from "./components/Docs.jsx";
+import ManualProfile from "./components/ManualProfile.jsx";
 import { decodeProfile } from "./utils/encoding.js";
 import "./styles.css";
 
@@ -107,6 +108,7 @@ export default function App() {
         {phase === "landing" && mode === "solo" && (
           <Landing
             onStart={() => setPhase("collect")}
+            onManual={() => setPhase("manual")}
             onSyncLink={(link) => {
               try {
                 const url = new URL(link.includes("://") ? link : `https://x.com/?${link.replace(/^\?/, "")}`);
@@ -151,12 +153,20 @@ export default function App() {
                 </div>
               </div>
             </div>
-            <Collect onDone={handleProfileB} isUserB partnerPlatform={profileA?.platform} />
+            <Collect onDone={handleProfileB} onManual={() => setPhase("manual")} isUserB partnerPlatform={profileA?.platform} />
           </div>
         )}
 
         {phase === "collect" && mode === "solo" && (
-          <Collect onDone={handleProfileA} />
+          <Collect onDone={handleProfileA} onManual={() => setPhase("manual")} />
+        )}
+
+        {phase === "manual" && mode === "solo" && (
+          <ManualProfile onDone={handleProfileA} onBack={() => setPhase("landing")} />
+        )}
+
+        {phase === "manual" && mode === "receiver" && (
+          <ManualProfile onDone={handleProfileB} onBack={() => setPhase("collect")} />
         )}
 
         {phase === "share" && profileA && (

@@ -123,6 +123,107 @@ app.post("/api/enrich", async (req, res) => {
   }
 });
 
+// ─── Route: /api/infer-profile ────────────────────────────────────────────────
+/**
+ * Body: { description: string, titles: string[] }
+ * Uses tool_use to infer a structured taste profile from free-text input.
+ * Returns the same { genres, shows } shape as /api/enrich.
+ */
+app.post("/api/infer-profile", async (req, res) => {
+  const { description, titles } = req.body;
+  const hasDesc   = typeof description === "string" && description.trim().length >= 10;
+  const hasTitles = Array.isArray(titles) && titles.length >= 1;
+
+  if (!hasDesc && !hasTitles) {
+    return res.status(400).json({ error: "Provide a description (10+ chars) or at least 1 title" });
+  }
+  if (Array.isArray(titles) && titles.length > 20) {
+    return res.status(400).json({ error: "Too many titles (max 20)" });
+  }
+
+  try {
+    const prompt = `Analyze this person's viewing taste and build a structured profile.
+
+${hasDesc ? `Taste description: "${description.trim()}"` : ""}
+${hasTitles ? `Favorite titles: ${titles.join(", ")}` : ""}
+
+Call build_taste_profile with:
+- genres: infer their top genre preferences with relative weights (1-100 scale). Use standard genre names: Action, Adventure, Animation, Comedy, Crime, Documentary, Drama, Family, Fantasy, History, Horror, Music, Mystery, Romance, Science Fiction, Thriller, War, Western, Reality, Talk, Soap.
+- shows: include ALL titles they listed (with estimated watchCount 3-8 based on enthusiasm) plus 5-10 additional titles they likely enjoy. Set isShow=true for TV series, false for movies.
+- total: estimated total episodes/movies watched (realistic number based on their taste breadth).`;
+
+    const message = await anthropic.messages.create({
+      model:      "claude-sonnet-4-20250514",
+      max_tokens: 1500,
+      tools: [
+        {
+          name:        "build_taste_profile",
+          description: "Build a structured viewing taste profile from a user description",
+          input_schema: {
+            type: "object",
+            properties: {
+              genres: {
+                type:  "array",
+                items: {
+                  type: "object",
+                  required: ["name", "value"],
+                  properties: {
+                    name:  { type: "string" },
+                    value: { type: "number", minimum: 1, maximum: 100 },
+                  },
+                },
+              },
+              shows: {
+                type:  "array",
+                items: {
+                  type: "object",
+                  required: ["title", "watchCount", "isShow", "mediaType", "rating"],
+                  properties: {
+                    title:      { type: "string" },
+                    watchCount: { type: "number", minimum: 1 },
+                    isShow:     { type: "boolean" },
+                    mediaType:  { type: "string", enum: ["tv", "movie"] },
+                    rating:     { type: "number", minimum: 0, maximum: 10 },
+                  },
+                },
+              },
+              total: { type: "number", minimum: 1 },
+            },
+            required: ["genres", "shows", "total"],
+          },
+        },
+      ],
+      tool_choice: { type: "tool", name: "build_taste_profile" },
+      messages:    [{ role: "user", content: prompt }],
+    });
+
+    const toolUse = message.content.find((b) => b.type === "tool_use");
+    if (!toolUse) throw new Error("No tool_use block in response");
+
+    const { genres = [], shows = [], total = 0 } = toolUse.input;
+
+    // Normalize shows to match the /api/enrich shape
+    const normalizedShows = shows.map((s) => ({
+      title:      s.title,
+      watchCount: s.watchCount,
+      isShow:     s.isShow,
+      tmdbId:     null,
+      mediaType:  s.mediaType,
+      genreIds:   [],
+      rating:     s.rating || 0,
+    }));
+
+    res.json({
+      genres: genres.sort((a, b) => b.value - a.value).slice(0, 12),
+      shows:  normalizedShows.sort((a, b) => b.watchCount - a.watchCount),
+      total,
+    });
+  } catch (err) {
+    console.error("/api/infer-profile error:", err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // ─── Route: /api/recommend ────────────────────────────────────────────────────
 /**
  * Body: { profileA, profileB, score }

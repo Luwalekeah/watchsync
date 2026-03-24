@@ -7,7 +7,7 @@ const HOW_IT_WORKS = [
   { n: "04", t: "See your matches",   d: "AI picks what you'll both love — ready to watch" },
 ];
 
-export default function Landing({ onStart, onSyncLink }) {
+export default function Landing({ onStart, onManual, onSyncLink }) {
   const [syncInput, setSyncInput] = useState("");
   const [syncErr,   setSyncErr]   = useState("");
   return (
@@ -54,6 +54,9 @@ export default function Landing({ onStart, onSyncLink }) {
         <div className="anim-fade-up-4 hero-cta">
           <button className="btn btn-lg" onClick={onStart}>
             Build my taste profile →
+          </button>
+          <button className="btn-ghost" onClick={onManual}>
+            No account? Describe your taste instead
           </button>
         </div>
 
