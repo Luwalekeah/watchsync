@@ -204,7 +204,31 @@ export default function Collect({ onDone, onManual, isUserB = false, partnerPlat
 
           <div className="method-grid">
 
-            {/* Extension option */}
+            {/* Manual option — first, works everywhere */}
+            {onManual && (
+              <button className="method-card" onClick={onManual}>
+                <div className="method-icon">✍️</div>
+                <div className="method-title">Describe My Taste</div>
+                <div className="method-desc">
+                  No account needed. Describe what you like and list your favorites — AI builds your profile.
+                </div>
+                <div className="method-badge instant" style={{ background: "rgba(139,92,246,.12)", color: "#a78bfa", borderColor: "rgba(139,92,246,.25)" }}>
+                  Works on mobile
+                </div>
+              </button>
+            )}
+
+            {/* CSV option — official, safe */}
+            <button className={`method-card${method === "csv" ? " selected" : ""}`} onClick={() => setMethod("csv")}>
+              <div className="method-icon">📄</div>
+              <div className="method-title">Official CSV Export</div>
+              <div className="method-desc">
+                Download your data from Netflix's privacy page and upload ViewingActivity.csv. The most accurate method — uses your real watch history.
+              </div>
+              <div className="method-badge days">Takes 2–3 days</div>
+            </button>
+
+            {/* Extension option — advanced */}
             <button
               className={`method-card${method === "extension" ? " selected" : ""}${!extInstalled ? " disabled" : ""}`}
               onClick={() => extInstalled && setMethod("extension")}
@@ -238,31 +262,10 @@ export default function Collect({ onDone, onManual, isUserB = false, partnerPlat
                       </a>
                     </div>
               )}
-            </button>
-
-            {/* CSV option */}
-            <button className={`method-card${method === "csv" ? " selected" : ""}`} onClick={() => setMethod("csv")}>
-              <div className="method-icon">📄</div>
-              <div className="method-title">Official CSV Export</div>
-              <div className="method-desc">
-                Download your data from Netflix's privacy page and upload ViewingActivity.csv.
+              <div className="method-disclaimer">
+                Uses unofficial APIs. For guaranteed compliance, use the CSV export.
               </div>
-              <div className="method-badge days">Takes 2–3 days</div>
             </button>
-
-            {/* Manual option */}
-            {onManual && (
-              <button className="method-card" onClick={onManual}>
-                <div className="method-icon">✍️</div>
-                <div className="method-title">Describe My Taste</div>
-                <div className="method-desc">
-                  No account needed. Describe what you like and list your favorites — AI builds your profile.
-                </div>
-                <div className="method-badge instant" style={{ background: "rgba(139,92,246,.12)", color: "#a78bfa", borderColor: "rgba(139,92,246,.25)" }}>
-                  Works on mobile
-                </div>
-              </button>
-            )}
           </div>
 
           {/* CSV upload area (shown inline when csv selected) */}

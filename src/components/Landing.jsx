@@ -52,11 +52,11 @@ export default function Landing({ onStart, onManual, onSyncLink }) {
         </div>
 
         <div className="anim-fade-up-4 hero-cta">
-          <button className="btn btn-lg" onClick={onStart}>
-            Build my taste profile →
+          <button className="btn btn-lg" onClick={onManual}>
+            Describe my taste →
           </button>
-          <button className="btn-ghost" onClick={onManual}>
-            No account? Describe your taste instead
+          <button className="btn-ghost" onClick={onStart}>
+            Have a Netflix account? Import your history
           </button>
         </div>
 
@@ -92,6 +92,11 @@ export default function Landing({ onStart, onManual, onSyncLink }) {
           </div>
           {syncErr && <div className="sync-link-err">{syncErr}</div>}
         </div>
+      </div>
+      <div className="site-disclaimer">
+        WatchSync is an independent fan project built for fun. It is not affiliated with,
+        endorsed by, or connected to Netflix, Hulu, Max, Disney+, Crunchyroll, Prime Video,
+        or any other streaming service. All trademarks belong to their respective owners.
       </div>
     </div>
   );

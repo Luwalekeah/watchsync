@@ -218,6 +218,8 @@ export default function Docs({ onBack }) {
             { term: "Sync link",             def: "Your profile is compressed into the URL itself using lz-string. No server stores it." },
             { term: "AI recommendations",    def: "The backend receives your top genres and show titles to generate picks. No account info or viewing timestamps are included." },
             { term: "Extension permissions", def: "The extension only accesses netflix.com. It reads your viewing history page and communicates with the WatchSync web app. It does not access any other sites or store data." },
+            { term: "Browser extension note", def: "The WatchSync extension reads your viewing history using unofficial APIs that are not supported by streaming platforms. For guaranteed compliance, use the official CSV data export instead." },
+            { term: "Disclaimer", def: "WatchSync is an independent fan project built for fun. It is not affiliated with, endorsed by, or connected to Netflix, Hulu, Max, Disney+, Crunchyroll, Prime Video, or any other streaming service. All trademarks belong to their respective owners." },
           ].map(({ term, def }) => (
             <div key={term} className="docs-def-item">
               <dt className="docs-def-term">{term}</dt>

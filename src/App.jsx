@@ -7,6 +7,7 @@ import Dashboard from "./components/Dashboard.jsx";
 import Docs from "./components/Docs.jsx";
 import ManualProfile from "./components/ManualProfile.jsx";
 import { decodeProfile } from "./utils/encoding.js";
+import { checkPassword } from "./api/index.js";
 import "./styles.css";
 
 /**
@@ -21,6 +22,28 @@ import "./styles.css";
  *  receiver → Arrived via ?sync= link (User B)
  */
 export default function App() {
+  const [authed, setAuthed] = useState(() => sessionStorage.getItem("ws_auth") === "1");
+  const [pw, setPw] = useState("");
+  const [pwErr, setPwErr] = useState("");
+  const [pwLoading, setPwLoading] = useState(false);
+
+  const handleLogin = async () => {
+    setPwErr("");
+    setPwLoading(true);
+    try {
+      const ok = await checkPassword(pw);
+      if (ok) {
+        sessionStorage.setItem("ws_auth", "1");
+        setAuthed(true);
+      } else {
+        setPwErr("Wrong password");
+      }
+    } catch {
+      setPwErr("Could not connect to server");
+    }
+    setPwLoading(false);
+  };
+
   const [mode,  setMode]  = useState("detecting");
   const [phase, setPhase] = useState("landing");
   const [profileA, setProfileA] = useState(null);
@@ -69,6 +92,33 @@ export default function App() {
     setPhase("landing");
     window.history.pushState({}, "", window.location.pathname);
   }, []);
+
+  if (!authed) {
+    return (
+      <div className="gate">
+        <div className="gate-card">
+          <Logo size={36} />
+          <h2 className="gate-title">Welcome to WatchSync</h2>
+          <p className="gate-sub">Enter the access code to continue.</p>
+          <div className="gate-row">
+            <input
+              className="gate-input"
+              type="password"
+              placeholder="Access code"
+              value={pw}
+              onChange={(e) => { setPw(e.target.value); setPwErr(""); }}
+              onKeyDown={(e) => e.key === "Enter" && pw.trim() && handleLogin()}
+              autoFocus
+            />
+            <button className="btn" onClick={handleLogin} disabled={!pw.trim() || pwLoading}>
+              {pwLoading ? "…" : "Enter"}
+            </button>
+          </div>
+          {pwErr && <div className="gate-err">{pwErr}</div>}
+        </div>
+      </div>
+    );
+  }
 
   if (mode === "detecting") {
     return (

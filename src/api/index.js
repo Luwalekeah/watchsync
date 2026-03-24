@@ -1,6 +1,21 @@
 const API = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
 /**
+ * Check access password against the backend.
+ * Returns true if access is granted, false otherwise.
+ */
+export async function checkPassword(password) {
+  const res = await fetch(`${API}/api/auth`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ password }),
+  });
+  if (!res.ok) return false;
+  const data = await res.json();
+  return data.ok === true;
+}
+
+/**
  * Deduplicate a raw Netflix item array into a title map,
  * then call the backend /api/enrich endpoint.
  *

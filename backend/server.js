@@ -325,6 +325,19 @@ Call provide_recommendations with exactly 3 movies and exactly 3 TV shows — 6 
   }
 });
 
+// ─── Route: /api/auth ────────────────────────────────────────────────────────
+/**
+ * Body: { password: string }
+ * Checks against ACCESS_PASSWORD env var. Returns { ok: true } or 401.
+ */
+app.post("/api/auth", (req, res) => {
+  const { password } = req.body;
+  const expected = process.env.ACCESS_PASSWORD;
+  if (!expected) return res.json({ ok: true }); // no password set = open access
+  if (password === expected) return res.json({ ok: true });
+  res.status(401).json({ error: "Invalid password" });
+});
+
 // ─── Health check ─────────────────────────────────────────────────────────────
 
 app.get("/api/health", (_req, res) => res.json({ ok: true }));
